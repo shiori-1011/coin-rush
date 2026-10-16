@@ -14,10 +14,11 @@ interface CoinGameProps {
   onTimeBonus: (bonusSeconds: number) => void;
   onGameOver: () => void;
   virtualDirection: { up: boolean; down: boolean; left: boolean; right: boolean };
+  children?: React.ReactNode;
 }
 
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 600;
+const CANVAS_WIDTH = 960;
+const CANVAS_HEIGHT = 540;
 
 export const CoinGame: React.FC<CoinGameProps> = ({
   skin,
@@ -28,6 +29,7 @@ export const CoinGame: React.FC<CoinGameProps> = ({
   onTimeBonus,
   onGameOver,
   virtualDirection,
+  children,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -760,7 +762,7 @@ export const CoinGame: React.FC<CoinGameProps> = ({
   }, [timeLeft, isGameActive, onGameOver]);
 
   return (
-    <div className="relative w-full aspect-[4/3] max-w-4xl mx-auto rounded-3xl overflow-hidden border-2 border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.6)] backdrop-blur-md">
+    <div className="relative w-full aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.6)] backdrop-blur-md bg-slate-900">
       <canvas
         ref={canvasRef}
         width={CANVAS_WIDTH}
@@ -770,6 +772,7 @@ export const CoinGame: React.FC<CoinGameProps> = ({
         onPointerMove={handlePointerInteraction}
         onPointerUp={handlePointerUp}
       />
+      {children}
     </div>
   );
 };
